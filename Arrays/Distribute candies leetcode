@@ -1,0 +1,25 @@
+package Arrays;
+
+import java.util.*;
+
+public class DistributeCandies {
+    public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
+        int n=sc.nextInt();
+        int a[]=new int[n];
+        for (int i=0;i<n;i++){
+            a[i]=sc.nextInt();
+        }
+        
+        LinkedHashSet<Integer> no= new LinkedHashSet<Integer>();
+        for (int i=0;i<a.length;i++){
+            no.add(a[i]);
+        }
+        int count1=n/2;
+        int count2=no.size();
+        System.out.println(Math.min(count1,count2));
+
+    }
+
+}
+
