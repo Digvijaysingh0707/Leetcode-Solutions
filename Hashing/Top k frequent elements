@@ -1,0 +1,31 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class FrequentElements {
+    //K most frequent elemnts
+    static List<Integer> frequent(int a[],int k){
+        List<Integer > ans= new ArrayList<>();
+        HashMap<Integer,Integer> map= new HashMap<>();
+        for (int i:a){
+            map.put(i,map.containsKey(i)?1+ map.get(i):1;
+        }
+        List<Integer> fre[]= new ArrayList[a.length];
+        for (int i=0;i<a.length;i++){
+            fre[i]=new ArrayList<>();
+
+        }
+        for (int key:map.keySet()){
+            fre[map.get(key)-1].add(key);
+        }
+        for (int i=a.length-1;i>=0;i--){
+            while (!fre[i].isEmpty()&&k>0){
+                ans.add(fre[i].remove(0));
+                k--;
+            }
+
+        }
+        return ans;
+    }
+
+}
