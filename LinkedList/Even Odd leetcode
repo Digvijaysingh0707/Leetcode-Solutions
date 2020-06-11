@@ -1,0 +1,57 @@
+
+//From Fang series
+static ListNode oddEven(ListNode head){
+        if (head==null)return null;
+        ListNode OddHead=null;
+        ListNode OddTail=null;
+        ListNode EvenHead=null;
+        ListNode EvenTail=null;
+        ListNode temp=head;
+        boolean isOdd=true;
+        while (temp!=null){
+            if (isOdd){
+                if (OddHead==null){
+                    OddHead=OddTail=temp;
+                }
+                else{
+                    OddTail.next=temp;
+                    OddTail=temp;
+                }
+                temp=temp.next;
+                OddTail.next=null;
+            }
+            else{
+                if (EvenHead==null){
+                    EvenHead=EvenTail=temp;
+                }
+                else{
+                    EvenTail.next=temp;
+                    EvenTail=temp;
+                }
+                temp=temp.next;
+                EvenTail.next=null;
+
+            }
+            isOdd=!isOdd;
+        }
+        OddTail.next=EvenHead;
+        return OddHead;
+
+    }
+    //Nick white
+    static ListNode oddEven(ListNode head) {
+        if (head==null)return null;
+        ListNode odd=head;
+        ListNode even=head.next;
+        ListNode evenHead=even;
+        while (even!=null&&even.next!=null){
+            odd.next=even.next;
+            odd=odd.next;
+            even.next=odd.next;
+            even=even.next;
+        }
+        odd.next=evenHead;
+        return head;
+
+
+    }
