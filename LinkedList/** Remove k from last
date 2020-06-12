@@ -1,0 +1,50 @@
+package LinkedList;
+
+import java.util.List;
+import java.util.Scanner;
+class ListNode {
+    int data;
+    ListNode next;
+
+    ListNode(int data) {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+public class RemoveKLast {
+   
+    public static void print(ListNode head){
+        ListNode temp=head;
+        while (temp!=null){
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), k = sc.nextInt();
+        ListNode head = new ListNode(sc.nextInt());//read first node
+        ListNode temp = head;
+        for (int i = 1; i < n; i++) {
+            temp = temp.next = new ListNode(sc.nextInt());
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        for (int j = 0; j < k; j++) {
+            fast = fast.next;
+        }
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+           print(head);
+
+
+       
+    }
+
+    }
+
