@@ -1,0 +1,54 @@
+package LinkedList;
+
+import org.w3c.dom.Node;
+
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+
+    Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random=null;
+    }
+}
+public class Makedeepcopy {
+    Node copy(Node head){
+        Node temp= head;
+        while (temp!=null){
+            Node n= new Node(temp.val);
+            n.next=temp.next;
+                temp.next=n;
+                temp=temp.next.next;
+        }
+        temp=head;
+        while (temp!=null){
+            if (temp.random!=null){
+                temp.next.random=temp.random.next;
+            }
+            temp=temp.next;
+        }
+        temp=head;
+        Node newHead=null,newTail=null;
+        while (temp!=null){
+            Node copy=temp.next;
+            if (newHead==null){
+                newHead=copy;
+                newTail=copy;
+                temp.next=copy.next;
+                copy.next=null;
+            }
+            else{
+                temp.next=copy.next;
+                copy.next=null;
+                newTail.next=copy;
+                newTail=copy;
+            }
+            temp=temp.next;
+        }
+        return newHead;
+    }
+
+}
