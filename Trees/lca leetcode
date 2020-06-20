@@ -1,0 +1,19 @@
+package Tree;
+class TreeNode{
+    int val;
+    TreeNode left,right;
+    TreeNode(int x){
+        val=x;
+    }
+}
+public class LCA {
+    static TreeNode LCA(TreeNode root,TreeNode p,TreeNode q){//par is parent
+        if (p.val<root.val && q.val<root.val){//nodes a and b lies on left side of parent
+            return LCA(root.left,p,q);
+        }
+        if (p.val>root.val && q.val>root.val){//nodes a and b lies on right side of parent
+            return LCA(root.right,p,q);
+        }
+return root;//it means above two conditions have failed and nodes a and b lies on different sides of parent nodes so parent will be the LCA
+    }
+}
