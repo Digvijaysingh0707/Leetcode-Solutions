@@ -1,0 +1,37 @@
+package Tree;
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data=data;
+    }
+}
+public class TotalSubtreeWithSum {
+    static int count=0;
+    static Node ptr;
+    static int find(Node root,int x){
+        if (root==null)return 0;
+        int l=0,r=0;
+        l+=find(root.left,x);
+        r+=find(root.right,x);
+        if (root.data+l+r==x)count++;
+        if (ptr!=root)return l+root.data+r;
+        return count;
+    }
+
+
+    public static void main(String[] args) {
+        Node root = new Node(5);
+        root.left = new Node(-10);
+        root.right = new Node(3);
+        root.left.left = new Node(9);
+        root.left.right = new Node(8);
+        root.right.left = new Node(-4);
+        root.right.right = new Node(7);
+        int x=7;
+        ptr=root;
+        System.out.println(find(root,x));
+
+    }
+}
