@@ -1,12 +1,67 @@
-class Solution {
-    public boolean containsDuplicate(int[] nums) {
-        HashSet<Integer> number= new HashSet<>();
-        for(int i=0;i<nums.length;i++){
-            if(number.contains(nums[i]))return true;
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class bit {
+    static boolean containsDuplicate(int nums[]){
+        HashMap<Integer,Boolean> map = new HashMap<>();
+        for (int i=0;i<nums.length;i++){
+            if (map.containsKey(nums[i]))return true;
             else{
-                number.add(nums[i]);
+                map.put(nums[i],true);
             }
-}
+        }
         return false;
     }
+    public static void main(String[] args) {
+        FastScanner sc = new FastScanner();
+        int n=sc.nextInt();
+        int a[]= new int[n];
+        for (int i=0;i<n;i++){
+            a[i]=sc.nextInt();
+        }
+        if (containsDuplicate(a)){
+            System.out.println("true");
+        }
+        else{
+            System.out.println("false");
+        }
+
+    }
+    static void sort(int[] a) {
+        ArrayList<Integer> l=new ArrayList<>();
+        for (int i:a) l.add(i);
+        Collections.sort(l);
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+
+    static class FastScanner {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer("");
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st=new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        long[] readArray(long n) {
+            long[] a=new long[(int)n];
+            for (int i=0; i<n; i++) a[i]=nextLong();
+            return a;
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+    }
+
 }
