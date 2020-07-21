@@ -1,34 +1,68 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
-public class FrequentElements {
-
-    static boolean contains(int a[],int k){
-        HashMap<Integer,Integer> map = new HashMap<>();
-        for (int i=0;i<a.length;i++){
-            int current=a[i];
-            if ((map.containsKey(current))&&map.get(current)<=k){
-            //map.get prints index of current
-                return true;
+public class bit {
+    static boolean containsDuplicate(int nums[],int k){
+        Map<Integer,Integer> map= new HashMap<>();
+        for (int i=0;i<nums.length;i++){
+            if (map.containsKey(nums[i])){
+                int preIndex=map.get(nums[i]);
+                if (i-preIndex>k){
+                    map.put(nums[i],i);
+                }
+                else{
+                    return true;
+                }
             }
-            map.put(current,i);
+            else{
+                map.put(nums[i],i);
+            }
         }
         return false;
     }
-
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        FastScanner sc = new FastScanner();
         int n=sc.nextInt();
         int a[]= new int[n];
         for (int i=0;i<n;i++){
             a[i]=sc.nextInt();
         }
         int k=sc.nextInt();
-        if (contains(a,k)){
-            System.out.println("true");
+        System.out.println(containsDuplicate(a,k));
+    }
+    static void sort(int[] a) {
+        ArrayList<Integer> l=new ArrayList<>();
+        for (int i:a) l.add(i);
+        Collections.sort(l);
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+
+    static class FastScanner { 
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer("");
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st=new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
         }
-        else{
-            System.out.println("false");
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        long[] readArray(long n) {
+            long[] a=new long[(int)n];
+            for (int i=0; i<n; i++) a[i]=nextLong();
+            return a;
+        }
+        long nextLong() {
+            return Long.parseLong(next());
         }
     }
-}
 
+}
