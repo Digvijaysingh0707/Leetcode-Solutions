@@ -1,0 +1,39 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class LongestAP {
+    static int longestAP(int a[]){
+        Map<Integer, Map<Integer,Integer>> mainMap= new HashMap<>();
+        int ans=1;
+        int n=a.length;
+        Map<Integer,Integer> s= new HashMap<>();
+        s.put(a[0],1);
+        mainMap.put(0,s);
+        for (int i=0;i<n;i++){
+            Map<Integer,Integer> curr= new HashMap<>();
+            for (int j=0;j<i;j++){
+                int diff=a[i]-a[j];
+                curr.put(diff,2);
+                Map<Integer,Integer> prev=mainMap.get(j);
+                if (prev.containsKey(diff)){
+                    int len=prev.get(diff);
+                    curr.put(diff,len+1);
+                }
+                ans=Math.max(ans,curr.get(diff));
+            }
+            mainMap.put(i,curr);
+        }
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();
+        int a[]= new int[n];
+        for (int i=0;i<n;i++){
+            a[i]=sc.nextInt();
+        }
+        System.out.println(longestAP(a));
+    }
+}
