@@ -1,17 +1,46 @@
-class Solution {
-    public List<List<String>> groupAnagrams(String[] strs) {
-        List<List<String>> group= new ArrayList<>();//this the return value
-        HashMap<String,List<String>> map = new HashMap<>();
-        for(String current:strs){
-            char[] character=current.toCharArray();
-            Arrays.sort(character);
-            String sorted =new String(character);
-            if(!map.containsKey(sorted)){
-                map.put(sorted,new ArrayList<>());
+import java.util.*;
+
+public class GroupAnagrams {
+    static String sort(String s){
+        char a[]=s.toCharArray();
+        Arrays.sort(a);
+        return new String(a);
+
+    }
+    static List<List<String>> group(String[] words){
+        HashMap<String,List<String>> m= new HashMap<>();
+        for (String w:words){
+            String s=sort(w);
+            if (m.containsKey(s)){
+                List<String> l=m.get(s);
+                l.add(w);
             }
-            map.get(sorted).add(current);
+            else{
+                List<String> l= new ArrayList<>();
+                l.add(w);
+                m.put(s,l);
+            }
         }
-        group.addAll(map.values());
-        return group;
+        List<List<String>> ans = new ArrayList<>();
+        for (String key:m.keySet()){
+            ans.add(m.get(key));
+        }
+        return ans;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();
+        String words[]= new String[n];
+        for (int i=0;i<n;i++){
+            words[i]=sc.next();
+        }
+        List<List<String>> ans=group(words);
+        for (List<String> list:ans){
+            for (String w:list){
+                System.out.print(w+" ");
+            }
+            System.out.println();
+        }
+
     }
 }
