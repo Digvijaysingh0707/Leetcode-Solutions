@@ -1,0 +1,38 @@
+import java.util.*;
+import java.util.Map.Entry;
+public class ApniKaksha1 {
+    //recursive app:-
+    //        int min=Integer.MAX_VALUE;
+//        for (int i=1;i*i<=n;i++){
+//            int ans=minPath(n-i*i);
+//            min=Math.min(min,ans);
+//        }
+//        return 1+min;
+    static int minPath(int n){
+        if (n==0)return 0;
+        int dp[]= new int[n+1];
+        Arrays.fill(dp,-1);
+        dp[0]=0;
+
+        for (int i=1;i<=n;i++){
+            int min=Integer.MAX_VALUE;
+            for (int j=1;j*j<=i;j++){
+                int ans=dp[i-j*j];
+                min=Math.min(ans,min);
+            }
+             dp[i]=min+1;
+        }
+
+return dp[n];
+
+
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n=sc.nextInt();
+
+
+        System.out.println(minPath(n));
+    }
+}
