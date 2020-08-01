@@ -1,0 +1,54 @@
+import java.util.*;
+import java.util.Map.Entry;
+public class ApniKaksha1 {
+    static int changeBase(int amount,int a[]){
+        int n=a.length;
+        if (n==0&&amount==0)return 1;
+        if (n==0)return 0;
+        return changeBU(amount,a,n);
+    }
+    static int change(int amount,int a[],int n){
+        if (amount==0)return 1;
+        if (n==0)return 0;
+        if (a[n-1]<=amount){
+            int c1=change(amount-a[n-1],a,n);
+            int c2=change(amount,a,n-1);
+            return c1+c2;
+
+        }
+        else return change(amount,a,n-1);
+    }
+    static int changeBU(int amount,int a[],int n){
+        int dp[][]= new int[n+1][amount+1];
+        for (int i=0;i<=n;i++){
+            dp[i][0]=1;
+        }
+        for (int i=0;i<=amount;i++){
+            dp[0][i]=1;
+        }
+        for (int i=1;i<=n;i++){
+            for (int j=1;j<=amount;j++){
+                if (a[i-1]<=j){
+                    dp[i][j]=dp[i][j-a[i-1]]+dp[i-1][j];
+                }
+                else{
+                    dp[i][j]=dp[i-1][j];
+                }
+            }
+        }
+        return dp[n][amount];
+
+
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int k=sc.nextInt();
+        int n=sc.nextInt();
+
+        int a[]= new int[n];
+        for (int i=0;i<n;i++){
+            a[i]=sc.nextInt();
+        }
+        System.out.println(change(k,a,n));
+    }
+}
