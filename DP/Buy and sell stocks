@@ -1,0 +1,82 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+public class Main {
+    static FastScanner sc = new FastScanner();
+    static int price(int a[]){
+        int n=a.length;
+        if (n==0||n==1)return 0;
+        int left[]= new int[n];
+        int lowest=a[0];
+        left[0]=0;
+        for (int i=1;i<n;i++){
+            left[i]=Math.max(left[i-1],a[i]-lowest);
+            lowest=Math.min(lowest,a[i]);
+        }
+        int right=0,ans=0,highest=0;
+        for (int i=n-1;i>=0;i--){
+            right=Math.max(right,highest-a[i]);
+            highest=Math.max(highest,a[i]);
+            ans=Math.max(ans,left[i]+right);
+        }
+        return ans;
+    }
+    public static void main(String[] args) {
+       int n=sc.nextInt();
+       int a[]= new int[n];
+       for (int i=0;i<n;i++){
+           a[i]=sc.nextInt();
+       }
+
+        System.out.println(price(a));
+
+
+
+
+    }
+
+    //    static void sort(int[] a) {
+//        ArrayList<Integer> l=new ArrayList<>();
+//        for (int i:a) l.add(i);
+//        Collections.sort(l);
+//        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+//    }
+    static void sort(long[] a) {
+        ArrayList<Integer> l = new ArrayList<>();
+        for (long i : a) l.add((int) i);
+        Collections.sort(l);
+        for (int i = 0; i < a.length; i++) a[i] = l.get(i);
+    }
+
+    static class FastScanner {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer("");
+
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+
+        int[] readArray(int n) {
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) a[i] = nextInt();
+            return a;
+        }
+
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+    }
+}
+
+
