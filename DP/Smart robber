@@ -5,7 +5,7 @@ import java.util.*;
 public class Main {
     static FastScanner sc = new FastScanner();
     static int find(int a[]){
-        if (a.length==0)return 0;
+        if (a.length==0)return 0;//dp is the loot arry
         if (a.length==0)return a[0];
         if (a.length==2)return Math.max(a[0],a[1]);
         int dp[]= new int[a.length];
