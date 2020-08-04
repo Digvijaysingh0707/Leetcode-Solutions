@@ -10,6 +10,7 @@ static int find(int nums[],int S){
     return findTargetSums(nums,S,0,0);
 //    return findTargetSumsTD(nums,S,0,0,cache);
 }
+//DP approach:-
     static int findTargetSumsTD(int nums[],int S,int sum,int i,int[][] cache){
         //Base case
         if (i==nums.length){
@@ -26,6 +27,7 @@ static int find(int nums[],int S){
             return cache[i][sum+1000]= add+subtract;
         }
     }
+    //Recursive approach
     static int findTargetSums(int nums[],int S,int sum,int i){
            //Base case
            if (i==nums.length){
