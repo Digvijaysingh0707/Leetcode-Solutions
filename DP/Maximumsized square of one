@@ -1,0 +1,50 @@
+import java.util.*;
+import java.util.Map.Entry;
+public class Main {
+    static int maximal(char[][] matrix){
+        if (matrix.length==0)return 0;
+        int m=matrix.length;
+        int n=matrix[0].length;
+        int dp[][]= new int[m][n];
+        int maxside=0;
+        //init base case last row and last col
+        for (int j=0;j<n;j++){
+            dp[m-1][j]=matrix[m-1][j]-'0';
+            maxside=Math.max(maxside,dp[m-1][j]);
+        }
+        for (int j=0;j<n;j++){
+            dp[j][n-1]=matrix[j][n-1]-'0';
+            maxside=Math.max(maxside,dp[j][n-1]);
+        }
+        for (int i=m-2;i>=0;i--){
+            for (int j=n-2;j>=0;j--){
+                int a1=dp[i+1][j];//bottom
+                int a2=dp[i+1][j+1];//diagonal
+                int a3=dp[i][j+1];//right
+                int ans=Math.min(a1, Math.min(a2,a3));
+                if (matrix[i][j]=='0'){
+                    dp[i][j]=0;
+                }
+                else{
+                    ans++;
+                    maxside=Math.max(maxside,ans);
+                    dp[i][j]=ans;
+                }
+            }
+        }
+        return maxside*maxside;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m=sc.nextInt();
+        int n=sc.nextInt();
+
+        char a[][]= new char[m][n];
+        for (int i=0;i<m;i++) {
+            for (int j = 0; j < n; j++) {
+                a[i][j] = sc.next().charAt(0);
+            }
+        }
+        System.out.println(maximal(a));
+    }
+}
