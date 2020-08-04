@@ -1,0 +1,58 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+static int find(int nums[],int S){
+    int cache[][]= new int[nums.length][2001];
+    for (int row[]:cache){
+        Arrays.fill(row,Integer.MIN_VALUE);
+    }
+    return findTargetSums(nums,S,0,0);
+//    return findTargetSumsTD(nums,S,0,0,cache);
+}
+    static int findTargetSumsTD(int nums[],int S,int sum,int i,int[][] cache){
+        //Base case
+        if (i==nums.length){
+            if (S==sum)return 1;
+            else return 0;
+        }
+        else{
+            if (cache[i][sum+1000]!=Integer.MIN_VALUE){
+                return cache[i][sum+1000];
+            }
+            //Recursive calls
+            int add=findTargetSumsTD(nums,S,sum+nums[i],i+1,cache);
+            int subtract=findTargetSumsTD(nums,S,sum-nums[i],i+1,cache);
+            return cache[i][sum+1000]= add+subtract;
+        }
+    }
+    static int findTargetSums(int nums[],int S,int sum,int i){
+           //Base case
+           if (i==nums.length){
+               if (S==sum)return 1;
+               else return 0;
+           }
+           else{
+               //Recursive calls
+               int add=findTargetSums(nums,S,sum+nums[i],i+1);
+               int subtract=findTargetSums(nums,S,sum-nums[i],i+1);
+               return add+subtract;
+           }
+       }
+        public static void main(String[] args) {
+            Scanner sc = new Scanner(System.in);
+
+            int n=sc.nextInt();
+            int target=sc.nextInt();
+
+            int a[]= new int[n];
+            for (int i=0;i<n;i++) {
+
+                    a[i]= sc.nextInt();
+                }
+
+            System.out.println(find(a,target));
+        }
+    }
+
+
