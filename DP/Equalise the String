@@ -1,0 +1,73 @@
+import java.util.Scanner;
+public class Main {
+    static int minDistance(String w1,String w2,int n,int m){
+        //Base case
+        if (n==0)return m;
+        if (m==0)return n;
+
+        //Recursive case
+        if (w1.charAt(n-1)==w2.charAt(m-1)){
+            return minDistance(w1,w2,n-1,m-1);
+        }
+        else{
+            int c1=minDistance(w1,w2,n,m-1);//Insert
+            int c2=minDistance(w1,w2,n-1,m);//Delete char
+            int c3=minDistance(w1,w2,n-1,m-1);//Replace char
+            return 1+Math.min(c1,Math.min(c2,c3));
+        }
+    }
+    static int minDistanceTD(String w1,String w2,int n,int m,int dp[][]){
+        //Base case
+        if (n==0)return m;
+        if (m==0)return n;
+
+        if (dp[n][m]!=-1){
+            return dp[n][m];
+        }
+
+        //Recursive case
+        if (w1.charAt(n-1)==w2.charAt(m-1)){
+            return minDistance(w1,w2,n-1,m-1);
+        }
+        else{
+            int c1=minDistanceTD(w1,w2,n,m-1,dp);//Insert
+            int c2=minDistanceTD(w1,w2,n-1,m,dp);//Delete char
+            int c3=minDistanceTD(w1,w2,n-1,m-1,dp);//Replace char
+            return dp[n][m]=1+Math.min(c1,Math.min(c2,c3));
+        }
+    }
+    static int minBU(String w1,String w2){
+        int n=w1.length();
+        int m=w2.length();
+        int dp[][]= new int[n+1][m+1];
+
+        //Init base cases
+        //0th row
+        for (int i=0;i<=m;i++){
+            dp[0][i]=i;
+        }
+        //Oth coloumn
+        for (int i=0;i<=n;i++){
+            dp[i][0]=i;
+        }
+
+        for (int i=1;i<=n;i++){
+            for (int j=1;j<=m;j++){
+                if (w1.charAt(i-1)==w2.charAt(j-1)){
+                    dp[i][j]=dp[i-1][j-1];
+                }
+                else{
+                    return 1+Math.min(dp[i-1][j],Math.min(dp[i][j-1],dp[i-1][j-1]));
+                }
+            }
+        }
+        return dp[n][m];
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s1=sc.next();
+        String s2=sc.next();
+        System.out.println(minBU(s1,s2));
+
+        }
+    }
