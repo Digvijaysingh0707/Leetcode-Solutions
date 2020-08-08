@@ -11,7 +11,7 @@ public class ApniKaksha1 {
         if (amount==0)return 1;
         if (n==0)return 0;
         if (a[n-1]<=amount){
-            int c1=change(amount-a[n-1],a,n);
+            int c1=change(amount-a[n-1],a,n);//not (n-1) because we can use this coin again
             int c2=change(amount,a,n-1);
             return c1+c2;
 
