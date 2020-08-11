@@ -1,12 +1,25 @@
+import org.w3c.dom.ls.LSOutput;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 class ListNode{
     int val;
     ListNode next;
-    ListNode(int val,ListNode next){
+    ListNode(int val){
         this.val=val;
         this.next=next;
     }
 }
 public class Random {
+    static void print(ListNode head){
+        ListNode temp= head;
+        while (temp!=null){
+            System.out.print(temp.val+" ");
+            temp=temp.next;
+        }
+    }
     static ListNode oddEvenList(ListNode head){
         if (head==null)return null;
         ListNode odd=head;
@@ -21,3 +34,23 @@ public class Random {
         odd.next=evenHead;
         return head;
     }
+    public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
+        int n = sc.nextInt();
+        ListNode head= new ListNode(sc.nextInt());
+       ListNode temp= head;
+       for (int i=1;i<n;i++){
+           temp=temp.next=new ListNode(sc.nextInt());
+       }
+        System.out.print("Original List: ");
+       print(head);
+        System.out.println();
+        System.out.print("Modified List: ");
+        oddEvenList(head);
+        print(head);
+
+
+    }
+
+
+}
