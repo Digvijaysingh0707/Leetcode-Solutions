@@ -1,18 +1,4 @@
-package LinkedList;
-
-import java.util.Scanner;
-
-public class swapPair {
-
-    public static void print(ListNode head){
-        ListNode temp=head;
-        while (temp!=null){
-            System.out.print(temp.data+"->");
-            temp=temp.next;
-        }
-        System.out.println("null");
-    }
-    public static ListNode swap(ListNode node){
+ public static ListNode swap(ListNode node){
         //Base case
         if (node==null||node.next==null) {
             return node;
@@ -25,20 +11,3 @@ public class swapPair {
         node.next=next_Pair_to_swap;
         return another;
     }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        ListNode head = new ListNode(sc.nextInt());//read first node
-        ListNode temp = head;
-        for (int i = 1; i <n; i++) {
-            temp = temp.next = new ListNode(sc.nextInt());
-        }
-        head=swap(head);
-        print(head);
-
-
-
-    }
-
-}
