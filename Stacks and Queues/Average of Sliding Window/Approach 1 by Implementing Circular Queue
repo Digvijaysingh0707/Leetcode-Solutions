@@ -1,0 +1,66 @@
+import java.security.SecureRandom;
+import java.sql.Array;
+import java.util.*;
+class Queue{
+    int a[];
+    int f,ms,cs,r;
+    Queue(int n){
+        a= new int[n];
+        cs=0;
+        ms=n;
+        f=0;
+        r=n-1;
+    }
+     void push(int data){
+        if (cs==ms)return;
+        r=(r+1)%ms;
+        a[r]=data;cs++;
+    }
+    void pop(){
+        if (cs==0)return;
+        f=(f+1)%ms;
+        cs--;
+    }
+    boolean empty(){
+        return cs==0;
+    }
+    boolean full(){
+        return cs==ms;
+    }
+    int front(){
+        return a[f];
+    }
+    int size(){
+        return cs;
+    }
+
+}
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static void circularQueue(){
+        int k=sc.nextInt();
+        Queue q= new Queue(k);
+        int n=sc.nextInt();
+        int sum=0;
+        while (n!=-1){
+            sum+=n;
+            if (q.full()){
+                sum-=q.front();
+                q.pop();
+            }
+            q.push(n);
+            System.out.println((double)((sum)/q.size())+" ");
+            n=sc.nextInt();
+
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        circularQueue();
+        }
+
+    }
+
+
+
