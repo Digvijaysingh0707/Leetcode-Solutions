@@ -1,0 +1,48 @@
+import java.security.SecureRandom;
+import java.sql.Array;
+import java.util.*;
+public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static void unique(){
+        char s[]=sc.next().toCharArray();
+        int lastIndex[]=new int[26];
+        Arrays.fill(lastIndex,0);
+        boolean presentInStack[]= new boolean[26];
+        Arrays.fill(presentInStack,false);
+        for (int i=0;s[i]!='0';i++){
+            lastIndex[s[i]-'a']=i;
+        }
+        Stack<Character> ch= new Stack<>();
+        for (int i=0;s[i]!='0';i++){
+            char ch1=s[i];
+            if (!presentInStack[ch1]){
+                while ( !ch.isEmpty()&&ch1<ch.peek()&&lastIndex[ch.peek()-'a']>i){
+                    presentInStack[ch.peek()-'a']=false;
+                    ch.pop();
+
+                }
+                ch.add(ch1);
+                presentInStack[ch1-'a']=true;
+            }
+        }
+        int k=ch.size();
+        char ans[]= new char[k+1];
+        ans[k--]='\0';
+        while (!ch.isEmpty()){
+            ans[k]=ch.peek();
+            ch.pop();
+            k--;
+        }
+        System.out.println(ans);
+
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            unique();
+        }
+
+    }
+
+}
+
