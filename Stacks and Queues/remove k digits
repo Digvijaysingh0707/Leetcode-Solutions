@@ -1,0 +1,36 @@
+    import java.util.*;
+    public class Main {
+        static String removeKDigits(String n,int k){
+            Stack<Character> s=  new Stack<>();
+            StringBuilder sb= new StringBuilder();
+            for (int i=0;i<n.length();i++){
+                char ch= n.charAt(i);
+                while (!s.isEmpty()&&s.peek()>ch){
+                    s.pop();
+                    k--;
+                }
+                s.push(ch);
+            }
+            while (!s.isEmpty())sb.insert(0,s.pop());
+            String ans=sb.substring(0,sb.length()-k);
+            int i=0;
+            while (i<ans.length()&&ans.charAt(i)=='0')i++;
+            ans=ans.substring(i);
+            return ans.equals("")?"0":ans;
+        }
+
+        public static void main(String[] args) {
+            Scanner sc = new Scanner(System.in);
+
+               String s=sc.next();
+               int k=sc.nextInt();
+//            System.out.println(removeKDigits(s,k));
+            String c=removeKDigits(s,k);
+            System.out.println(c);
+
+            }
+
+
+
+
+       }
