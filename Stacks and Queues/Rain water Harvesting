@@ -1,0 +1,73 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+public class Main {
+   static int find(int[] height){
+       int n=height.length;
+       if(n==0)return 0;
+       int maxStart[]= new int[n];
+       int maxEnd[]= new int[n];
+       for (int i=1;i<n;i++){
+           maxStart[i]=Math.max(maxStart[i-1],height[i-1]);
+       }
+       for (int i=n-2;i>=0;i--){
+           maxEnd[i]=Math.max(maxEnd[i+1],height[i+1]);
+       }
+       int ans=0;
+       for (int i=0;i<n;i++){
+           int level=Math.min(maxStart[i],maxEnd[i]);
+           if (level-height[i]>0){
+               ans+=level-height[i];
+           }
+       }
+       return ans;
+   }
+    public static void main(String[] args) {
+        FastScanner sc=new FastScanner();
+        int n=sc.nextInt();
+      int a[]=sc.readArray(n);
+        System.out.println(find(a));
+
+
+
+        }
+        
+
+
+
+    static void sort(int[] a) {
+        ArrayList<Integer> l=new ArrayList<>();
+        for (int i:a) l.add(i);
+        Collections.sort(l);
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+
+    static class FastScanner {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer("");
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st=new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        int[] readArray(int n) {
+            int[] a=new int[n];
+            for (int i=0; i<n; i++) a[i]=nextInt();
+            return a;
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+    }
+
+
+}
