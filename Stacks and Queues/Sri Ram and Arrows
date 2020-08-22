@@ -10,17 +10,17 @@ public class Main {
             int x = sc.nextInt();
             if (!s.isEmpty()&&s.peek()>0&&x<0) {
                 //Arrows will collide
-                boolean flag=true;//For x whether we need to insert it or not
+                boolean flag=true;//For x,whether we need to insert it or not
                 //Initially assume that we have to insert x into the stack
                 //Here true reprsents that we have inserted x into the stack
                 while (!s.isEmpty()&&s.peek()>0&&x<0) {
                     if (Math.abs(x) == Math.abs(s.peek())) {
                         s.pop();
-                        flag = false;
+                        flag = false;//we wont be inserting x into the stack
                         break;
                     } else if (Math.abs(x) > Math.abs(s.peek())) {
                         s.pop();
-                        flag=true;
+                        flag=true;//it shows that we have to insert x
                     }
                     else if (Math.abs(x)<Math.abs(s.peek())){
                         flag=false;
