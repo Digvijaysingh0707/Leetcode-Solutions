@@ -1,0 +1,90 @@
+import javax.swing.plaf.IconUIResource;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
+import java.util.*;
+public class Main {
+    static int fun(ArrayList<String> v,int i,String s){
+        //Base case
+        if (i==v.size()){
+            if (s.length()>26)return 0;
+            int fre[]= new int[26];
+            Arrays.fill(fre,0);
+            for (int j=0;j<s.length();j++){
+                if (fre[s.charAt(j)-'a']==1)return 0;
+                fre[s.charAt(j)-'a']++;
+            }
+            return s.length();
+        }
+        int Op1,Op2;
+         Op1=Op2=Integer.MIN_VALUE;
+        //we can include the ith string
+        if (s.length()+v.get(i).length()<=26){
+            Op1=fun(v,i+1,s+v.get(i));
+        }
+        //we can exclude the ith string
+        Op2=fun(v,i+1,s);
+
+        return Math.max(Op1,Op2);
+
+    }
+    static int UniqueString(ArrayList<String> v){
+        String s="";
+        return fun(v,0,s);
+    }
+    public static void main(String[] args) {
+        FastScanner sc = new FastScanner();
+        ArrayList<String> v= new ArrayList<>();
+        int n=sc.nextInt();
+        for (int i=0;i<n;i++){
+            String s=sc.next();
+            v.add(s);
+        }
+        System.out.println(UniqueString(v));
+
+
+    }
+
+    static void sort(int[] a) {
+        ArrayList<Integer> l=new ArrayList<>();
+        for (int i:a) l.add(i);
+        Collections.sort(l);
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+    static void sortReverse(long[] a) {
+        ArrayList<Long> l=new ArrayList<>();
+        for (long i:a) l.add(i);
+//        Collections.sort.(l);
+        Collections.sort(l,Collections.reverseOrder());
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+
+    static class FastScanner {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer("");
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st=new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        int[] readArray(int n) {
+            int[] a=new int[n];
+            for (int i=0; i<n; i++) a[i]=nextInt();
+            return a;
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+    }
+
+
+}
