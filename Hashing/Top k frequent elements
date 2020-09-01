@@ -1,38 +1,91 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
+public class Main {
+   static List<Integer> kMostFrequent(int a[],int k){
+       List<Integer> ans= new ArrayList<>();
+       HashMap<Integer,Integer> map= new HashMap<>();
+       for (int i:a){
+           map.put(i,map.containsKey(i)?1+map.get(i):1);
+       }
+       List<Integer> fre[]= new ArrayList[a.length];
+       for (int i=0;i<a.length;i++)
+           fre[i]= new ArrayList<>();
+       for (int key:map.keySet())
+           fre[map.get(key)-1].add(key);
+       for (int i=a.length-1;i>=0;i--){
+           while (!fre[i].isEmpty()&&k>0){
+               ans.add(fre[i].remove(0));
+               k--;
+           }
+       }
+       return ans;
+   }
+   public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+       FastScanner sc = new FastScanner();
+      int n=sc.nextInt();
+      int k=sc.nextInt();
+      int a[]=sc.readArray(n);
+       System.out.println(kMostFrequent(a,k));
 
-public class FrequentElements {
-    static List<Integer> kFrequenet(int a[], int k) {
-        List<Integer> ans = new ArrayList<>();
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i : a) {
-            map.put(i, map.containsKey(i) ? map.get(i) + 1 : 1);
-        }
-        List<Integer> fre[] = new ArrayList[a.length];
-        for (int i = 0; i < a.length; i++) {
-            fre[i] = new ArrayList<>();
-        }
-        for (int key : map.keySet()) {
-            fre[map.get(key) - 1].add(key);
-        }
-        for (int i = a.length - 1; i >= 0; i--) {
-            while (!fre[i].isEmpty() && k > 0) {
-                ans.add(fre[i].remove(0));
-                k--;
-            }
-        }
-        return ans;
+   }
+        static void sort(int[] a) {
+        ArrayList<Integer> l = new ArrayList<>();
+        for (int i : a) l.add(i);
+        Collections.sort(l);
+        for (int i = 0; i < a.length; i++) a[i] = l.get(i);
+    }
+    static void sortLong(long[] a) {
+        ArrayList<Integer> l = new ArrayList<>();
+        for (long i : a) l.add((int)i);
+        Collections.sort(l);
+        for (int i = 0; i < a.length; i++) a[i] = l.get(i);
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    static void sortReverse(long[] a) {
+        ArrayList<Long> l = new ArrayList<>();
+        for (long i : a) l.add(i);
+        Collections.sort(l, Collections.reverseOrder());
+        for (int i = 0; i < a.length; i++) a[i] = l.get(i);
+    }
 
-            int n = sc.nextInt();
-            int k = sc.nextInt();
-            int a[] = new int[n];
+    static class FastScanner {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer("");
 
-            for (int i = 0; i < n; i++) {
-                a[i] = sc.nextInt();}
-        System.out.println(kFrequenet(a,k));
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
 
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+
+        int[] readArray(int n) {
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) a[i] = nextInt();
+            return a;
+        }
+        long[] readArrayLong(int n) {
+            long[] a = new long[n];
+            for (int i = 0; i < n; i++) a[i] = nextLong();
+            return a;
+        }
+
+        long nextLong() {
+            return Long.parseLong(next());
+        }
     }
 }
+
+
+
