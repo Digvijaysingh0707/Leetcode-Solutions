@@ -1,68 +1,94 @@
 
 //O(n) approach
 
-import java.io.BufferedReader;
+
+  import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-
-public class bit {
-    static boolean containsDuplicate(int nums[]){
-        HashMap<Integer,Boolean> map = new HashMap<>();//initially all boolean values are set as false
-        for (int i=0;i<nums.length;i++){
-            if (map.containsKey(nums[i]))return true;
-            else{
-                map.put(nums[i],true);
+public class Main {
+    static boolean find(int a[]){
+        HashMap<Integer,Boolean> map = new HashMap<>();
+        for (int i=0;i<a.length;i++){
+            if (map.containsKey(a[i])){
+                return true;
             }
+            else map.put(a[i],true);
         }
         return false;
     }
     public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n=sc.nextInt();
-        int a[]= new int[n];
-        for (int i=0;i<n;i++){
-            a[i]=sc.nextInt();
-        }
-        if (containsDuplicate(a)){
-            System.out.println("true");
-        }
-        else{
-            System.out.println("false");
+
+            int n = sc.nextInt();
+            int a[] = sc.readArray(n);
+        System.out.println(find(a));
+//            if (find(a)){
+//                System.out.println("true");
+//            }else System.out.println("false");
         }
 
-    }
+
+
+
+
+
     static void sort(int[] a) {
-        ArrayList<Integer> l=new ArrayList<>();
-        for (int i:a) l.add(i);
+        ArrayList<Integer> l = new ArrayList<>();
+        for (int i : a) l.add(i);
         Collections.sort(l);
-        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+        for (int i = 0; i < a.length; i++) a[i] = l.get(i);
+    }
+    static void sortLong(long[] a) {
+        ArrayList<Integer> l = new ArrayList<>();
+        for (long i : a) l.add((int)i);
+        Collections.sort(l);
+        for (int i = 0; i < a.length; i++) a[i] = l.get(i);
+    }
+
+    static void sortReverse(long[] a) {
+        ArrayList<Long> l = new ArrayList<>();
+        for (long i : a) l.add(i);
+        Collections.sort(l, Collections.reverseOrder());
+        for (int i = 0; i < a.length; i++) a[i] = l.get(i);
     }
 
     static class FastScanner {
-        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st=new StringTokenizer("");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer("");
+
         String next() {
             while (!st.hasMoreTokens())
                 try {
-                    st=new StringTokenizer(br.readLine());
+                    st = new StringTokenizer(br.readLine());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             return st.nextToken();
         }
 
+
         int nextInt() {
             return Integer.parseInt(next());
         }
-        long[] readArray(long n) {
-            long[] a=new long[(int)n];
-            for (int i=0; i<n; i++) a[i]=nextLong();
+
+        int[] readArray(int n) {
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) a[i] = nextInt();
             return a;
         }
+        long[] readArrayLong(int n) {
+            long[] a = new long[n];
+            for (int i = 0; i < n; i++) a[i] = nextLong();
+            return a;
+        }
+
         long nextLong() {
             return Long.parseLong(next());
         }
     }
-
 }
+
+
+
+
