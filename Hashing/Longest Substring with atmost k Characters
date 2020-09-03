@@ -1,0 +1,110 @@
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+public class Main {
+    static int lengthOfLongestSubstringwithKDistinctCharacter(String s,int k){
+        int n=s.length();
+        int max=0;
+        int left=0;
+        if (n*k==0)return 0;
+        HashMap<Character,Integer> map = new HashMap<>();
+        for (int right=0;right<n;right++){
+            char ch =s.charAt(right);
+            map.put(ch,right);
+            if (map.size()>k){
+                char char_With_Min_Index='0';
+                int min_Index=Integer.MAX_VALUE;
+                for (char key:map.keySet()){
+                    if (map.get(key)<min_Index){
+                        char_With_Min_Index=key;
+                        min_Index=map.get(key);
+                    }
+                }
+                left=min_Index+1;
+                map.remove(char_With_Min_Index);
+            }
+            max=Math.max(max,right-left+1);
+        }
+        return max;
+
+    }
+   public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+       FastScanner sc = new FastScanner();
+       int n = sc.nextInt();
+       while (n-- >= 1) {
+           String s=sc.next();
+           int k = sc.nextInt();
+           int ans=lengthOfLongestSubstringwithKDistinctCharacter(s,k);
+           System.out.println(ans);
+
+       }
+   }
+
+
+
+
+
+
+
+
+        static void sort(int[] a) {
+        ArrayList<Integer> l = new ArrayList<>();
+        for (int i : a) l.add(i);
+        Collections.sort(l);
+        for (int i = 0; i < a.length; i++) a[i] = l.get(i);
+    }
+    static void sortLong(long[] a) {
+        ArrayList<Integer> l = new ArrayList<>();
+        for (long i : a) l.add((int)i);
+        Collections.sort(l);
+        for (int i = 0; i < a.length; i++) a[i] = l.get(i);
+    }
+
+    static void sortReverse(long[] a) {
+        ArrayList<Long> l = new ArrayList<>();
+        for (long i : a) l.add(i);
+        Collections.sort(l, Collections.reverseOrder());
+        for (int i = 0; i < a.length; i++) a[i] = l.get(i);
+    }
+
+    static class FastScanner {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer("");
+
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
+
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+
+        int[] readArray(int n) {
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) a[i] = nextInt();
+            return a;
+        }
+        long[] readArrayLong(int n) {
+            long[] a = new long[n];
+            for (int i = 0; i < n; i++) a[i] = nextLong();
+            return a;
+        }
+
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+    }
+}
+
+
+
