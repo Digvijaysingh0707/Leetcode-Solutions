@@ -44,3 +44,21 @@ public class GroupAnagrams {
 
     }
 }
+
+
+
+-------------------------------------
+   static List<List<String>> find(String[] a){
+       Map<String,List<String>> map = new HashMap<>();
+       for (String s:a){
+           char ch[] =s.toCharArray();
+           Arrays.sort(ch);
+           String sorted = new String(ch);
+           if (!map.containsKey(sorted)){
+               map.put(sorted,new LinkedList<String>());
+           }
+           map.get(sorted).add(s);//.add is property of linked list
+       }
+       return new LinkedList<>(map.values());
+   }
+
