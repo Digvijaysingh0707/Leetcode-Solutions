@@ -1,0 +1,22 @@
+static int index=0;
+    static Node BuildTree(int inorder[],int postorder[],int si,int ei){
+        if (si>ei)return null;
+        int data=postorder[index];
+        index--;
+        Node root = new Node(data);
+        int k=-1;
+        for (int i=si;i<=ei;i++){
+            if (data==inorder[i]){
+                k=i;
+                break;
+            }
+        }
+        root.right=BuildTree(inorder,postorder,k+1,ei);
+        root.left=BuildTree(inorder,postorder,si,k-1);
+        return root;
+    }
+    static Node BuildTree(int inorder[],int postorder[]){
+        if (inorder.length==0)return null;
+        index=inorder.length-1;
+        return BuildTree(inorder,postorder,0,index);
+    }
