@@ -1,0 +1,18 @@
+//static boolean mirror(Node leftPart,Node rightPart){
+//        if (leftPart==null||rightPart==null)return leftPart==rightPart;
+//        if (leftPart.data!=rightPart.data)return false;
+//        if (mirror(leftPart.left,rightPart.right)&&mirror(leftPart.right,rightPart.right)){
+//            return true;
+//        }
+//        else return false;
+//    }
+    static boolean mirror(Node leftPart,Node rightPart){
+        if (leftPart==null&&rightPart==null)return true;
+        if (leftPart==null||rightPart==null)return false;
+        if (leftPart.data!=rightPart.data)return false;
+        return leftPart.data==rightPart.data&&ismirror(leftPart.left,rightPart.right)&&ismirror(leftPart.right,rightPart.left);
+    }
+    static boolean isSymmetric(Node root){
+        if (root==null)return true;
+        return mirror(root,root);
+    }
