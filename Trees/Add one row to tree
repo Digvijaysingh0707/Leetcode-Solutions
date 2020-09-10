@@ -1,0 +1,32 @@
+    static Node addOneRowtoTree(Node root,int v,int d){
+        if (d==1){
+            Node new_root= new Node();
+            new_root.data=v;
+            new_root.left=root;
+            return new_root;
+        }
+        add(root,1,v,d);
+        return root;
+    }
+    static void add(Node node,int depth,int v,int d){
+        //Base case
+        if (node ==null)return;
+        if (depth==d-1){
+            Node leftChild= new Node();
+            leftChild.data=v;
+            Node rightChild= new Node();
+            rightChild.data=v;
+
+            leftChild.left=node.left;
+            rightChild.right=node.right;
+
+            node.left=leftChild;
+            node.right=rightChild;
+            return;
+        }
+        else{
+
+            add(node.left,depth+1,v,d);
+            add(node.right,depth+1,v,d);
+        }
+    }
