@@ -17,3 +17,21 @@ public class LCA {
 return root;//it means above two conditions have failed and nodes a and b lies on different sides of parent nodes so parent will be the LCA
     }
 }
+
+
+________________________________________________________________________
+static boolean find(Node root,Node n){
+        if (root==null)return false;
+        return root.data==n.data||find(root.left,n)||find(root.right,n);
+
+    }
+
+    static Node lca(Node root,Node a,Node b){
+        if (a.data==root.data||b.data==root.data)return root;
+        if (find(root.left,a)){
+            if (find(root.left,b))return lca(root.left,a,b);
+            else return  root;
+        }
+        else if (find(root.right,b)) return lca(root.right,a,b);
+        else return root;
+    }
