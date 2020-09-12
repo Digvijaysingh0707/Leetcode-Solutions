@@ -35,3 +35,103 @@ static boolean find(Node root,Node n){
         else if (find(root.right,b)) return lca(root.right,a,b);
         else return root;
     }
+    
+    _____________________________________________________________________________
+    import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node next;
+    Node(int data){
+        this.data=data;
+        left=right=null;
+    }
+}
+public class Main {
+
+    static Scanner sc = new Scanner(System.in);
+    static void takeInput(Node root){
+        String str=sc.next();
+        if (str == "true") {
+
+            int num=sc.nextInt();
+            Node child = new Node(num);
+            root.left=child;
+            takeInput(root.left);
+        }
+        else {
+            if (str=="false"){
+                root.left=null;
+            }
+        }
+        str=sc.next();
+        if (str == "true") {
+
+            int num=sc.nextInt();
+            Node child = new Node(num);
+            root.right=child;
+            takeInput(root.right);
+        }
+        else {
+            if (str=="false"){
+                root.right=null;
+            }
+        }
+    }
+    static void printLevel(Node root){
+        Queue<Node > q= new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        while (!q.isEmpty()){
+            Node cur=q.poll();
+            q.poll();
+            if (cur==null){
+                System.out.println();
+                if (!q.isEmpty()){
+                    q.add(null);
+                }
+                continue;
+            }
+            System.out.print(cur.data+" ");
+            if (cur.left!=null)q.add(cur.left);
+            if (cur.right!=null)q.add(cur.right);
+        }
+    }
+    static Node lcs(Node root ,int a,int b){
+        if (root==null)return null;
+        if (root.data==a||root.data==b)return root;
+        Node left=lcs(root.left,a,b);
+        Node right =lcs(root.right,a,b);
+        if (right==null&&left==null){
+            return null;
+        }
+        else if (left!=null&&right!=null){
+            return root;
+        }
+        return  (left!=null?right:left);
+
+    }
+    public static void main(String[] args) {
+
+        int n=sc.nextInt();
+        Node root = new Node(n);
+        takeInput(root);
+        printLevel(root);
+        int a=sc.nextInt();
+        int b=sc.nextInt();
+        Node ans=lcs(root,a,b);
+        if (ans!=null){
+            System.out.println(ans.data);
+        }
+
+
+
+
+    }
+
+}
+
+
