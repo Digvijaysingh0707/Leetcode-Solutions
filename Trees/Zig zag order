@@ -20,7 +20,7 @@ static List<List<Integer>> zigzag(Node root){
                 if (!q.isEmpty()){
                     q.add(null);
                 }
-                l=new ArrayList<>();
+                l=new ArrayList<>();//Empty the list by reinitialising
 
             }
             else{
