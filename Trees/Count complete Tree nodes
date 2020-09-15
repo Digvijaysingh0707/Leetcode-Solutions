@@ -1,0 +1,56 @@
+static int CountNodes(Node root){
+        
+        if (root==null)return 0;
+        int d=depth(root);
+        if (d==0){
+            return 1;
+        }
+        int left=1;
+        int right=(int)Math.pow(2,d);
+        int n_d=0;
+
+        while (left<=right){
+            int pivot=(left+right)/2;
+            if(check(root,pivot,d)){
+                left=pivot+1;
+                n_d=pivot;
+            }
+            else{
+                right=pivot-1;
+            }
+        }
+        return ((int)Math.pow(2,d)-1)+n_d;
+
+    }
+    static int depth(Node nn){
+        int count=0;
+        while (nn.left!=null){
+            nn=nn.left;
+            count++;
+        }
+        return count;
+    }
+    static boolean check(Node nn,int idx,int d){
+        //d is depth of the tree
+        int l=1;
+        int r=(int)Math.pow(2,d);
+        int pivot=0;
+        for (int i=0;i<d;i++){
+            pivot=(l+r)/2;
+            if (idx<=pivot){
+                nn=nn.left;
+                r=pivot;
+            }
+            else{
+                nn=nn.right;
+                l=pivot+1;
+            }
+
+        }
+        if (nn==null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
