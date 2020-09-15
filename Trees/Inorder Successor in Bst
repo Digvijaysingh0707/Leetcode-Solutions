@@ -1,8 +1,12 @@
 static boolean check=false;
 static Node InorderSuccessorinBST(Node node ,Node p){
+//Base Case
     if (node==null)return null;
+    //left child
     Node left = InorderSuccessorinBST(node.left,p);
     if (left!=null)return left;
+    
+    //Self work
     if (check==false){
         check=false;
         return node;
@@ -11,6 +15,8 @@ static Node InorderSuccessorinBST(Node node ,Node p){
     if (p==node){
         check=true;
     }
+    
+    //Right node
 
     Node right=InorderSuccessorinBST(node.right,p);
     if (right!=null)return right;
