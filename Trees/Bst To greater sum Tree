@@ -1,0 +1,14 @@
+static int sum=0;
+    static void bst_to_greater_Sum_Tree(TreeNode root){
+        if (root==null)return;
+
+        //right child
+        bst_to_greater_Sum_Tree(root.right);
+
+        //self work
+        sum+=root.val;
+        root.val=sum;
+
+        //left child
+        bst_to_greater_Sum_Tree(root.left);
+    }
