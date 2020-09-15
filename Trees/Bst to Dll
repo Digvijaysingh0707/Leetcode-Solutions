@@ -1,0 +1,60 @@
+import java.lang.reflect.Array;
+import java.util.*;
+
+class TreeNode{
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode next;
+    TreeNode(int val){
+        this.val=val;
+        left=right=null;
+    }
+    TreeNode(){}
+    TreeNode(int val,TreeNode left,TreeNode right){
+        val=val;
+        left=left;
+        right=right;
+    }
+}
+public class Main {
+
+    
+    static TreeNode last=null;
+    static TreeNode first=null;
+    static TreeNode treeToDll(TreeNode root){
+        if (root==null)return null;
+        helper(root);
+        last.right=first;
+        first.left=last;
+        return first;
+    }
+    static void helper(TreeNode root){
+        if (root!=null){
+            helper(root.left);
+            if (last!=null){
+                last.right=root;
+                root.left=last;
+
+            }
+            else{
+                first=root;
+            }
+            last=root;
+            helper(root.right);
+        }
+    }
+    public static void main(String[] args) {
+
+        int n=sc.nextInt();
+        TreeNode root = new TreeNode(n);
+        takeInput(root);
+
+
+
+
+
+    }
+
+}
+
