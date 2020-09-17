@@ -1,0 +1,101 @@
+import javax.swing.plaf.IconUIResource;
+import java.lang.reflect.Array;
+import java.util.*;
+
+class TreeNode{
+     int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode next;
+    TreeNode(int val){
+        this.val=val;
+        left=right=null;
+    }
+    TreeNode(){}
+    TreeNode(int val,TreeNode left,TreeNode right){
+        val=val;
+        left=left;
+        right=right;
+    }
+}
+public class Main {
+
+
+    static Scanner sc = new Scanner(System.in);
+    static void takeInput(TreeNode root){
+        String str=sc.next();
+        if (str == "true") {
+
+            int num=sc.nextInt();
+            TreeNode child = new TreeNode(num);
+            root.left=child;
+            takeInput(root.left);
+        }
+        else {
+            if (str=="false"){
+                root.left=null;
+            }
+        }
+        str=sc.next();
+        if (str == "true") {
+
+            int num=sc.nextInt();
+            TreeNode child = new TreeNode(num);
+            root.right=child;
+            takeInput(root.right);
+        }
+        else {
+            if (str=="false"){
+                root.right=null;
+            }
+        }
+    }
+    static TreeNode createTree(){
+        int data=sc.nextInt();
+        if (data==-1)return null;
+        TreeNode root = new TreeNode(data);
+        root.left=createTree();
+        root.right=createTree();
+        return root;
+    }
+    static TreeNode findNode(TreeNode root,int x){
+        if (root==null)return null;
+        if (root.val==x)return root;
+        TreeNode left= findNode(root.left,x);
+        TreeNode right= findNode(root.right,x);
+        return (left==null?right:left);
+
+    }
+    static int CountNodes(TreeNode root){
+        if (root==null)return 0;
+        int left_nodes_count=CountNodes(root.left);
+        int right_nodes_count=CountNodes(root.right);
+        return 1+left_nodes_count+right_nodes_count;
+    }
+    static int BangBang(TreeNode root,int x,int n){
+        TreeNode t=findNode(root,x);
+        int left= CountNodes(t.left);
+        int right=CountNodes(t.right);
+        int remaning=n-(left+right)-1;
+        if (left>right+remaning)return 1;
+        if (right>left+remaning)return 1;
+        if (remaning>left+right)return 1;
+        return 0;
+    }
+
+    public static void main(String[] args) {
+
+       int N=sc.nextInt();
+        int n=sc.nextInt();
+        int x=sc.nextInt();
+        TreeNode root = createTree();
+        System.out.println(BangBang(root,x,n));
+
+
+
+
+
+    }
+
+}
+
