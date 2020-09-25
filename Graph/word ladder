@@ -1,0 +1,117 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.*;
+class Pair{
+    String word;
+    int depth;
+    public Pair(String word,int depth){
+        this.word=word;
+        this.depth=depth;
+    }
+}
+public class Main {
+    static ArrayList<String> transformation(HashSet<String> sets,String word){
+        ArrayList<String> neughbour= new ArrayList<>();
+        StringBuffer sb = new StringBuffer(word);
+        for (int i=0;i<sb.length();i++){
+            char temp =sb.charAt(i);
+            for (char ch='a';ch<='z';ch++){
+                if (temp==ch){
+                    continue;
+                }
+                sb.setCharAt(i,ch);
+                String newWord=sb.toString();
+                if (sets.remove(newWord)){
+                    neughbour.add(newWord);
+                }
+            }
+            sb.setCharAt(i,temp);
+        }
+        return neughbour;
+    }
+    static int ladder(String beginWord,String endword,ArrayList<String> dictionary){
+        Queue<Pair> q= new LinkedList<Pair>();
+        q.add(new Pair(beginWord,1));
+        HashSet<String> sets= new HashSet<>(dictionary);
+        while (!q.isEmpty()){
+            Pair x=q.remove();
+            ArrayList<String> neughbour= transformation(sets,x.word);
+            for (String str:neughbour){
+                if (endword.equals(str)){
+                    return x.depth+1;
+                }
+                q.add(new Pair(str,x.depth+1));
+            }
+        }
+        return 0;
+
+    }
+
+
+    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+        FastScanner sc = new FastScanner();
+        PrintWriter out = new PrintWriter(System.out);
+       String s1=sc.next();
+       String s2=sc.next();
+       int n=sc.nextInt();
+       ArrayList<String> dictionary = new ArrayList<>();
+       for (int i=0;i<n;i++){
+           dictionary.add(sc.next());
+       }
+       int ans=ladder(s1,s2,dictionary);
+        System.out.println(ans);
+
+
+        out.flush();
+    }
+
+    static void sort(int[] a) {
+        ArrayList<Integer> l=new ArrayList<>();
+        for (int i:a) l.add(i);
+        Collections.sort(l);
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+    static void sortReverse(long[] a) {
+        ArrayList<Long> l=new ArrayList<>();
+        for (long i:a) l.add(i);
+//        Collections.sort.(l);
+        Collections.sort(l,Collections.reverseOrder());
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+
+    static class FastScanner {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer("");
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st=new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        int[] readArray(int n) {
+            int[] a=new int[n];
+            for (int i=0; i<n; i++) a[i]=nextInt();
+            return a;
+        }
+        long[] readArrayLong(long n) {
+            long[] a=new long[(int)n];
+            for (int i=0; i<n; i++) a[i]=nextLong();
+            return a;
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+    }
+
+
+}
