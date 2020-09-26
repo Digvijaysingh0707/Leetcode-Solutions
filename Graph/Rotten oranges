@@ -1,0 +1,117 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.*;
+class help{
+    int r;int c;int depth;
+    public help(int r,int c,int depth){
+        this.r=r;
+        this.c=c;
+        this.depth=depth;
+    }
+}
+public class Main {
+    static int row_Index[]={0,0,-1,1};
+    static int col_Index[]={-1,1,0,0};
+    static int rottenOrange(int grid[][],int r,int c){
+        Queue<help> bfs= new LinkedList<help>();
+        for (int i=0;i<r;i++){
+            for (int j=0;j<c;j++){
+                if (grid[i][j]==2){
+                    bfs.add(new help(i,j,0));
+                }
+            }
+        }
+        int ans=0;
+        while (!bfs.isEmpty()){
+            help x=bfs.remove();
+            int row=x.r;
+            int coloumn=x.c;
+            int depth=x.depth;
+            ans=Math.max(depth,ans);
+            for (int i=0;i<4;i++){
+                int newRow=row+row_Index[i];
+                int newColoumn=coloumn+col_Index[i];
+                if (newColoumn>=0&&newColoumn<c&&newRow>=0&&newRow<r&&grid[newRow][newColoumn]==1){
+                    grid[newRow ][newColoumn]=2;
+                    bfs.add(new help(newRow,newColoumn,depth+1));
+                }
+            }
+        }
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (grid[i][j]==1)return -1;
+            }
+        }
+        return ans;
+
+    }
+   public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+        FastScanner sc = new FastScanner();
+        PrintWriter out = new PrintWriter(System.out);
+        int t=sc.nextInt();
+        while (t-->=1) {
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            int grid[][] = new int[n][m];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    grid[i][j] = sc.nextInt();
+                }
+            }
+            System.out.println(rottenOrange(grid,n,m));
+
+
+        }
+        out.flush();
+    }
+
+    static void sort(int[] a) {
+        ArrayList<Integer> l=new ArrayList<>();
+        for (int i:a) l.add(i);
+        Collections.sort(l);
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+    static void sortReverse(long[] a) {
+        ArrayList<Long> l=new ArrayList<>();
+        for (long i:a) l.add(i);
+//        Collections.sort.(l);
+        Collections.sort(l,Collections.reverseOrder());
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+
+    static class FastScanner {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer("");
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st=new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        int[] readArray(int n) {
+            int[] a=new int[n];
+            for (int i=0; i<n; i++) a[i]=nextInt();
+            return a;
+        }
+        long[] readArrayLong(long n) {
+            long[] a=new long[(int)n];
+            for (int i=0; i<n; i++) a[i]=nextLong();
+            return a;
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+    }
+
+
+}
