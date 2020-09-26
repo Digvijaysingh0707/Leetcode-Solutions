@@ -1,0 +1,35 @@
+class Pair{
+    int x;int y;
+    Pair(int x,int y){
+        this.x=x;
+        this.y=y;
+    }
+}
+public class Main {
+    static int infinity=2147483647;
+    static void wallsAndGates(int rooms[][]){
+        int n=rooms.length;
+        if (n==0)return;
+        int m=rooms[0].length;
+        Queue<Pair> q= new LinkedList<>();
+        for (int i=0;i<n;i++){
+            for (int j=0;j<m;j++){
+                if (rooms[i][j]==0){
+                    q.add(new Pair(i,j));
+                }
+            }
+        }
+        int xmoves[]={0,0,1,-1};
+        int ymoves[]={1,-1,0,0};
+        while (!q.isEmpty()){
+            Pair p=q.poll();
+            for (int i=0;i<4;i++){
+                int x=p.x+xmoves[i];
+                int y=p.y=ymoves[i];
+                if (x>=0&&y>=0&&x<n&&y<n&&rooms[x][y]==infinity){
+                    q.add(new Pair(x,y));
+                    rooms[x][y]=rooms[p.x][p.y]+1;
+                }
+            }
+        }
+    }
