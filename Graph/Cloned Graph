@@ -1,0 +1,44 @@
+class Node{
+    int val;
+    List<Node> neighbour;
+    public Node(){
+        val=0;
+        neighbour= new ArrayList<>();
+    }
+    public Node(int val){
+        this.val=val;
+        neighbour= new ArrayList<>();
+    }
+    public Node(int val,ArrayList<Node> neighbour){
+        this.val=val;
+        this.neighbour=neighbour;
+    }
+}
+
+public class Main {
+   static Node cloneGraph(Node node){
+       if (node==null){
+           return null;
+       }
+       Queue<Node> q = new LinkedList<>();
+       q.add(node);
+       HashMap<Node,Node> map = new HashMap<>();
+       map.put(node,new Node(node.val));
+       while (!q.isEmpty()){
+           Node curr=q.poll();
+           Node copyNode= map.get(curr);
+           if (curr.neighbour!=null){
+               List<Node> currNeighbour=curr.neighbour;
+               for (Node neighbour:currNeighbour){
+                   Node cloned=map.get(neighbour);
+                   if (cloned==null){
+                       q.add(neighbour);
+                       cloned = new Node(neighbour.val);
+                       map.put(neighbour,cloned);
+                   }
+                   copyNode.neighbour.add(cloned);
+               }
+           }
+       }
+       return map.get(node);
+   }
