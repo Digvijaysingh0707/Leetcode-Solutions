@@ -1,0 +1,7 @@
+https://www.geeksforgeeks.org/swap-two-nibbles-byte/
+
+ static int swapNibbles(int N) {
+        //code here
+        int x=((N&0x0F)<<4|(N&0xF0)>>4);
+        return x;
+    }
