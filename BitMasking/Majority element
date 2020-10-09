@@ -1,0 +1,142 @@
+//TC O(n)
+//space O(1)
+
+
+public int majorityElement(int[] nums) {
+       int majority=nums[0];
+       int count=1;
+       for (int i=1;i<nums.length;i++){
+           if (nums[i]==majority){
+               count+=1;
+           }
+           else{
+               count-=1;
+               if (count==0){
+                   majority=nums[i];
+                   count=1;
+               }
+           }
+       }
+    }
+    
+    _______________________________________________________________________
+    TC O(n)
+    space O(n)
+    
+    import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.*;
+
+
+public class Main {
+    static Map<Integer,Integer> find(int a[]){
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int i=0;i<a.length;i++){
+            if (map.containsKey(a[i])){
+                map.put(a[i],map.get(a[i])+1);
+            }
+            else{
+                map.put(a[i],1);
+            }
+        }
+        return map;
+    }
+
+    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+       FastScanner sc = new FastScanner();
+       PrintWriter out = new PrintWriter(System.out);
+       StringBuilder st = new StringBuilder();
+       int n=sc.nextInt();
+
+       int a[]=sc.readArray(n);
+        Map<Integer,Integer> map =find(a);
+        Map.Entry<Integer,Integer> max=null;
+        for (Map.Entry<Integer,Integer> entry:map.entrySet()){
+            if (max==null||entry.getValue()>max.getValue()){
+                max=entry;
+            }
+        }
+        System.out.println(max.getKey());
+
+
+
+            out.flush();
+        }
+
+
+
+
+
+
+    static void sort(int[] a) {
+        ArrayList<Integer> l=new ArrayList<>();
+        for (int i:a) l.add(i);
+        Collections.sort(l);
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+    static void sortReverse(long[] a) {
+        ArrayList<Long> l=new ArrayList<>();
+        for (long i:a) l.add(i);
+//        Collections.sort.(l);
+        Collections.sort(l,Collections.reverseOrder());
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+
+    static class FastScanner {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer("");
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st=new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        int[] readArray(int n) {
+            int[] a=new int[n];
+            for (int i=0; i<n; i++) a[i]=nextInt();
+            return a;
+        }
+        long[] readArrayLong(long n) {
+            long[] a=new long[(int)n];
+            for (int i=0; i<n; i++) a[i]=nextLong();
+            return a;
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+    }
+
+
+}
+
+________________________________________________________________
+//Using bit masking
+//TC O(logn*n)
+
+static void find(int a[],int n){
+        int number=0;
+        for (int i=0;i<32;i++){
+            int count=0;
+            for (int j=0;j<n;j++){
+                if ((a[j]&(1<<j))==1)count++;
+            }
+            if (count>n/2)number+=(1<<i);
+        }
+        int count=0;
+        for (int i=0;i<n;i++) {
+            if (a[i] == number) count++;
+        }
+        if (count>n/2){
+            System.out.println(number);
+        }
+    }
