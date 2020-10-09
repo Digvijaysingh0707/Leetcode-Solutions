@@ -12,3 +12,21 @@ class Solution {
         
     }
 }
+
+
+_____________________________________________________
+//using o(1)
+(not working)
+
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if (n==0)return false;
+        double log1=(Math.log(n)/Math.log(2));
+        double ceil=Math.ceil(log1);
+        double floor=Math.floor(log1);
+        if (ceil!=floor)return false;
+        else return true;
+
+
+    }
+}
