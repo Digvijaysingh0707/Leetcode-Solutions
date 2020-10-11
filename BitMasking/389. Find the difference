@@ -1,0 +1,28 @@
+class Solution {
+    public static char findTheDifference(String s, String t) {
+        int fre[]=new int[26];
+        for (int i=0;i<s.length();i++){
+            fre[s.charAt(i)-'a']++;
+        }
+        for (int i=0;i<t.length();i++){
+            fre[t.charAt(i)-'a']--;
+        }
+        int x=0;
+        for (int i=0;i<26;i++){
+            if (fre[i]<0){
+                x=i+1;
+            }
+        }
+        char ch=' ';
+        boolean flag=false;
+        for (char c='a';c<='z';c++){
+            x--;
+            if (x==0){
+                ch=c;
+            }
+        }
+        return ch;
+
+
+    }
+}
