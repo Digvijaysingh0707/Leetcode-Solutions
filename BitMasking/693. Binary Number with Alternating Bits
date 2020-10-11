@@ -1,0 +1,17 @@
+class Solution {
+    public static boolean hasAlternatingBits(int n) {
+        int num1=n>>1;
+        boolean flag=true;
+        while (num1>0){
+            if ((n&1)==(num1&1)){
+                flag=false;
+                break;
+            }
+            num1>>=1;
+            n>>=1;
+        }
+        if (flag)return true;
+        else return false;
+
+    }
+}
