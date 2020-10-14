@@ -1,0 +1,135 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.*;
+//---------------------------------------------------------------------------------------------------------------
+public class Main {
+    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+        FastScanner sc = new FastScanner();
+        PrintWriter out = new PrintWriter(System.out);
+        int n=sc.nextInt();
+        int k=sc.nextInt();
+        HashMap<String,Integer> map = new HashMap<>();
+        List<String> ans = new ArrayList<>();
+        for (int i=0;i<n;i++){
+            String s=sc.next();
+            map.put(s,map.getOrDefault(s,0)+1);
+        }
+        PriorityQueue<String> pq[] = new PriorityQueue[n];
+        for (int i=0;i<pq.length;i++){
+            pq[i]= new PriorityQueue<>();
+        }
+        for (String w:map.keySet()){
+            pq[map.get(w)-1].add(w);
+        }
+        for (int i=pq.length-1;i>=0&&(k>0);i--){
+            while (k>0 && (!pq[i].isEmpty())){
+                ans.add(pq[i].remove());
+                k--;
+            }
+        }
+        for (int i=0;i<ans.size();i++){
+            System.out.print(ans.get(i)+" ");
+        }
+
+
+
+      out.flush();
+    }
+    //------------------------------------------------------------------------------------------------------------
+    static void sort(int[] a) {
+        ArrayList<Integer> l=new ArrayList<>();
+        for (int i:a) l.add(i);
+        Collections.sort(l);
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+    static void swap(int a,int b){
+        int c=a;
+        a=b;
+        b=c;
+    }
+    static void printArray(int a[]){
+        for (int i=0;i<a.length;i++){
+            System.out.print(a[i]+" ");
+        }
+    }
+    static boolean sorted(int a[]){
+        int n=a.length;
+        boolean flag=true;
+        for (int i=0;i<n-1;i++){
+            if (a[i]>a[i+1])flag=false;
+        }
+        if (flag)return true;
+        else  return false;
+    }
+    public static int findlog(long n){
+        if(n == 0)
+            return 0;
+
+        if(n == 1)
+            return 0;
+        if(n == 2)
+            return 1;
+        double num = Math.log(n);
+        double den = Math.log(2);
+        if(den == 0)
+            return 0;
+        return (int)(num/den);
+    }
+    public static long gcd(long a,long b){
+        if(b%a == 0)
+            return a;
+        return gcd(b%a,a);
+    }
+    public static int gcdInt(int a,int b){
+
+        if(b%a == 0)
+            return a;
+
+        return gcdInt(b%a,a);
+
+    }
+
+    static void sortReverse(long[] a) {
+        ArrayList<Long> l=new ArrayList<>();
+        for (long i:a) l.add(i);
+//        Collections.sort.(l);
+        Collections.sort(l,Collections.reverseOrder());
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+
+    static class FastScanner {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer("");
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st=new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        int[] readArray(int n) {
+            int[] a=new int[n];
+            for (int i=0; i<n; i++) a[i]=nextInt();
+            return a;
+        }
+        long[] readArrayLong(long n) {
+            long[] a=new long[(int)n];
+            for (int i=0; i<n; i++) a[i]=nextLong();
+            return a;
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+    }
+
+
+}
