@@ -1,0 +1,140 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.*;
+//---------------------------------------------------------------------------------------------------------------
+public class Main {
+    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+        FastScanner sc = new FastScanner();
+        PrintWriter out = new PrintWriter(System.out);
+        String s=sc.next();
+        Map<Character,Integer> map = new HashMap<>();
+        for ( char ch:s.toCharArray()){
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+        PriorityQueue<Character> maxHeap = new PriorityQueue<>((x,y) -> map.get(y)-map.get(x));
+        maxHeap.addAll(map.keySet());
+        StringBuilder sb = new StringBuilder();
+        while (maxHeap.size()>1){
+            char c1=maxHeap.remove();
+            char c2=maxHeap.remove();
+            sb.append(c1);
+            sb.append(c2);
+            map.put(c1,map.get(c1)-1);
+            map.put(c2,map.get(c2)-1);
+            if (map.get(c1)>0){
+                maxHeap.add(c1);
+            }
+            if (map.get(c2)>0){
+                maxHeap.add(c2);
+            }
+        }
+        if (maxHeap.size()==1){
+            char cc=maxHeap.remove();
+            int occ=map.get(cc);
+            if (occ==1){
+                sb.append(cc);
+            }
+        }
+        System.out.println(sb.toString());
+
+
+      out.flush();
+    }
+    //------------------------------------------------------------------------------------------------------------
+    static void sort(int[] a) {
+        ArrayList<Integer> l=new ArrayList<>();
+        for (int i:a) l.add(i);
+        Collections.sort(l);
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+    static void swap(int a,int b){
+        int c=a;
+        a=b;
+        b=c;
+    }
+    static void printArray(int a[]){
+        for (int i=0;i<a.length;i++){
+            System.out.print(a[i]+" ");
+        }
+    }
+    static boolean sorted(int a[]){
+        int n=a.length;
+        boolean flag=true;
+        for (int i=0;i<n-1;i++){
+            if (a[i]>a[i+1])flag=false;
+        }
+        if (flag)return true;
+        else  return false;
+    }
+    public static int findlog(long n){
+        if(n == 0)
+            return 0;
+
+        if(n == 1)
+            return 0;
+        if(n == 2)
+            return 1;
+        double num = Math.log(n);
+        double den = Math.log(2);
+        if(den == 0)
+            return 0;
+        return (int)(num/den);
+    }
+    public static long gcd(long a,long b){
+        if(b%a == 0)
+            return a;
+        return gcd(b%a,a);
+    }
+    public static int gcdInt(int a,int b){
+
+        if(b%a == 0)
+            return a;
+
+        return gcdInt(b%a,a);
+
+    }
+
+    static void sortReverse(long[] a) {
+        ArrayList<Long> l=new ArrayList<>();
+        for (long i:a) l.add(i);
+//        Collections.sort.(l);
+        Collections.sort(l,Collections.reverseOrder());
+        for (int i=0; i<a.length; i++) a[i]=l.get(i);
+    }
+
+    static class FastScanner {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer("");
+        String next() {
+            while (!st.hasMoreTokens())
+                try {
+                    st=new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        int[] readArray(int n) {
+            int[] a=new int[n];
+            for (int i=0; i<n; i++) a[i]=nextInt();
+            return a;
+        }
+        long[] readArrayLong(long n) {
+            long[] a=new long[(int)n];
+            for (int i=0; i<n; i++) a[i]=nextLong();
+            return a;
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+    }
+
+
+}
