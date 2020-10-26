@@ -1,0 +1,47 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+class Pair{
+    int x;int y;
+    Pair(int x,int y){
+        this.x=x;
+        this.y=y;
+    }
+}public class Main {
+    static int knightMoves(int n,int m,int sx,int sy,int dx,int dy){
+        boolean vis[][]= new boolean[n][m];
+        Queue<Pair> q= new LinkedList<>();
+        Queue<Integer> dq= new LinkedList<>();
+        Pair s= new Pair(sx,sy);
+        q.add(s);
+        dq.add(0);
+        vis[sx][sy]=true;
+        int ans=0;
+        int xmoves[]={-1,1,-2,2,-2,2,-1,1};
+        int ymoves[]={2,2,1,1,-1,-1,-2,-2};
+        while (!q.isEmpty()){
+            Pair u=q.poll();
+            ans=dq.poll();
+            if (u.x==dx && u.y==dy){
+                return ans;
+            }
+            for (int k=0;k<8;k++){
+                int x=u.x+xmoves[k];
+                int y=u.y+ymoves[k];
+                if (x>=0 && x<n&& y>=0 && y<m && !vis[x][y]){
+                    vis[x][y]=true;
+                    q.add(new Pair(x,y));
+                    dq.add(ans+1);
+                }
+            }
+
+        }
+        return -1;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt(),m=sc.nextInt(),sx=sc.nextInt(),sy=sc.nextInt(),dx=sc.nextInt(),dy=sc.nextInt();
+        System.out.println(knightMoves(n,m,sx-1,sy-1,dx-1,dy-1));
+
+    }
+}
