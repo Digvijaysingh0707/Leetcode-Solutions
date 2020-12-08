@@ -1,4 +1,4 @@
-//Recursive app:- exponential
+//Recursive app:- sqrt(n)^n
 
 static int find(int n){
         if (n<=0)return 0;
