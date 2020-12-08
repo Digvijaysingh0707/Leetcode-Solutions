@@ -1,13 +1,19 @@
+//Recursive app:- exponential
+
+static int find(int n){
+        if (n<=0)return 0;
+        int ans=Integer.MAX_VALUE;
+        for (int i=1;i*i<=n;i++){
+            ans=min(ans,1+find(n-i*i));
+        }
+        return ans;
+    }
+
+
 import java.util.*;
 import java.util.Map.Entry;
 public class ApniKaksha1 {
-    //recursive app:-
-    //        int min=Integer.MAX_VALUE;
-//        for (int i=1;i*i<=n;i++){
-//            int ans=minPath(n-i*i);
-//            min=Math.min(min,ans);
-//        }
-//        return 1+min;
+    
     static int minPath(int n){
         if (n==0)return 0;
         int dp[]= new int[n+1];
