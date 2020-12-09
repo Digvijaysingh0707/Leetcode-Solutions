@@ -1,3 +1,20 @@
+//Top down
+class Solution {
+    static int dp[]= new int[47];
+    public int climbStairs(int n) {
+        if(n==0)return 1;
+        int ways=0;
+         if(dp[n]!=0)return dp[n];
+        for(int i=1;i<=2;i++){
+            if(n-i>=0)
+            ways+=climbStairs(n-i);
+        }
+        return dp[n]=ways;
+    }
+}
+
+
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
