@@ -1,22 +1,31 @@
-//static boolean mirror(Node leftPart,Node rightPart){
-//        if (leftPart==null||rightPart==null)return leftPart==rightPart;
-//        if (leftPart.data!=rightPart.data)return false;
-//        if (mirror(leftPart.left,rightPart.right)&&mirror(leftPart.right,rightPart.right)){
-//            return true;
-//        }
-//        else return false;
-//    }
-    static boolean mirror(Node leftPart,Node rightPart){
-        if (leftPart==null&&rightPart==null)return true;
-        if (leftPart==null||rightPart==null)return false;
-        if (leftPart.data!=rightPart.data)return false;
-        return leftPart.data==rightPart.data&&ismirror(leftPart.left,rightPart.right)&&ismirror(leftPart.right,rightPart.left);
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    static boolean same(TreeNode leftP,TreeNode rightP){
+        if(leftP==null&&rightP==null)return true;
+        if(leftP==null||rightP==null)return false;
+        if(leftP.val!=rightP.val)return false;
+        
+        return same(leftP.left,rightP.right)&&same(leftP.right,rightP.left);
     }
-    static boolean isSymmetric(Node root){
-        if (root==null)return true;
-        return mirror(root,root);
-    }
-    ________________________________________________________
+    public boolean isSymmetric(TreeNode root) {
+        if(root==null)return true;
+        return same(root,root);
+        }
+}    ________________________________________________________
     
     
     
