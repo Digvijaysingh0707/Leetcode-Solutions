@@ -1,23 +1,29 @@
-class Node{
-    int val;
-    List<Node> neighbour;
-    public Node(){
-        val=0;
-        neighbour= new ArrayList<>();
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> neighbors;
+    
+    public Node() {
+        val = 0;
+        neighbors = new ArrayList<Node>();
     }
-    public Node(int val){
-        this.val=val;
-        neighbour= new ArrayList<>();
+    
+    public Node(int _val) {
+        val = _val;
+        neighbors = new ArrayList<Node>();
     }
-    public Node(int val,ArrayList<Node> neighbour){
-        this.val=val;
-        this.neighbour=neighbour;
+    
+    public Node(int _val, ArrayList<Node> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
     }
 }
+*/
 
-public class Main {
-   static Node cloneGraph(Node node){
-       if (node==null){
+class Solution {
+    public Node cloneGraph(Node node) {
+        if (node==null){
            return null;
        }
        Queue<Node> q = new LinkedList<>();
@@ -27,18 +33,19 @@ public class Main {
        while (!q.isEmpty()){
            Node curr=q.poll();
            Node copyNode= map.get(curr);
-           if (curr.neighbour!=null){
-               List<Node> currNeighbour=curr.neighbour;
-               for (Node neighbour:currNeighbour){
-                   Node cloned=map.get(neighbour);
+           if (curr.neighbors!=null){
+               List<Node> currNeighbors=curr.neighbors;
+               for (Node neigh:currNeighbors){
+                   Node cloned=map.get(neigh);
                    if (cloned==null){
-                       q.add(neighbour);
-                       cloned = new Node(neighbour.val);
-                       map.put(neighbour,cloned);
+                       q.add(neigh);
+                       cloned = new Node(neigh.val);
+                       map.put(neigh,cloned);
                    }
-                   copyNode.neighbour.add(cloned);
+                   copyNode.neighbors.add(cloned);
                }
            }
        }
        return map.get(node);
-   }
+    }
+}
